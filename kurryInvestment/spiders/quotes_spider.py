@@ -13,14 +13,13 @@ class QuotesSpider(scrapy.Spider):
             print("The value of counter is",count)
             print("The value of check is",check)
             item = dict()
-#            item['noOfChitty'] =[''.join(cell.xpath('./a/text()|./text()').extract()).strip() for cell in check.xpath('//table[@class="MsoTableGrid"]/tr/td[1]')]
-#            item['noOfChitty'] =''.join(check.xpath('//table[@class="MsoTableGrid"]/tr/td[1]//text()').extract()).strip()
-#            item['monthInfo]' = check.xpath('//table[@class="MsoTableGrid"]/tr/td[2]//text()').extract(),
-#            item['chittyNo'] =check.xpath('//table[@class="MsoTableGrid"]/tr/td[3]//text()').extract(),
-#            item['regNo'] =check.xpath('//table[@class="MsoTableGrid"]/tr/td[4]//text()').extract(),
-            item['sala'] = check.xpath('//table[@class="MsoTableGrid"]/tr/td[5]//text()').re(r'[0-9,-]+')
-# 	     item['inst']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[6]//text()').extract(),	
-#            item['chittyStatus']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[7]//text()').extract(),
-#            item['chittyAmount']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[8]//text()').extract()	
+            item['noOfChitty'] =check.xpath('//table[@class="MsoTableGrid"]/tr/td[1]//text()').re(r'[0-9,-/]+|[0-9]+')
+            item['monthInfo'] = check.xpath('//table[@class="MsoTableGrid"]/tr/td[2]//text()').re(r'[0-9,-/]+|[NKL 0-9]+'),
+            item['chittyNo'] =check.xpath('//table[@class="MsoTableGrid"]/tr/td[3]//text()').re(r'[0-9/]+|[NKL 0-9]+'),
+            item['regNo'] =check.xpath('//table[@class="MsoTableGrid"]/tr/td[4]//text()').re(r'[0-9,-/]+'),
+            item['sala'] = check.xpath('//table[@class="MsoTableGrid"]/tr/td[5]//text()').re(r'[0-9,-/]+'),
+ 	    item['inst']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[6]//text()').re(r'[0-9/]+|[A-Za-z]+'),	
+            item['chittyStatus']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[7]//text()').re(r'[0-9,]+|[A-Za-z]+'),
+            item['chittyAmount']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[8]//text()').re(r'[0-9,]+')	
             yield item
             count+=1;
