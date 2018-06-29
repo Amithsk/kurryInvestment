@@ -8,10 +8,7 @@ class QuotesSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        count=0  
         for check in response.xpath('//table[@class="MsoTableGrid"]'):
-            print("The value of counter is",count)
-            print("The value of check is",check)
             item = dict()
             item['noOfChitty'] =check.xpath('//table[@class="MsoTableGrid"]/tr/td[1]//text()').re(r'[0-9,-/]+|[0-9]+')
             item['monthInfo'] = check.xpath('//table[@class="MsoTableGrid"]/tr/td[2]//text()').re(r'[0-9,-/]+|[NKL 0-9]+'),
@@ -22,4 +19,3 @@ class QuotesSpider(scrapy.Spider):
             item['chittyStatus']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[7]//text()').re(r'[0-9,]+|[A-Za-z]+'),
             item['chittyAmount']=check.xpath('//table[@class="MsoTableGrid"]/tr/td[8]//text()').re(r'[0-9,]+')	
             yield item
-            count+=1;
