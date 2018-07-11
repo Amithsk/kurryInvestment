@@ -41,10 +41,7 @@ salaData=[]
 aucpriData=[]
 payAmtData=[]
 
-#Read the scrapped file data
-with open('quotes.json') as D:
-  data = json.load(D)
-
+def lineNoFilter(data):
 #Loop through the line no of chitty data
   for d in range (int(len(data[1]["noOfChitty"]))):
 #Check if the data is of line no format or not,if yes add to the linen o list
@@ -54,7 +51,18 @@ with open('quotes.json') as D:
     elif(chittyDate.fullmatch(data[1]["noOfChitty"][d])):
       chittyDateData.append(data[1]["noOfChitty"][d])
 
-  for temp in range (int(len(lineNoData))):
-    print("\nThe value of  line no is",lineNoData[temp])
-  for temp in range(int(len(chittyDateData))):
-    print("\n The value[ of chittyDate is",chittyDateData[temp])
+def chittyDateFilter(data):
+#Loop through the line no of chitty data
+  for d in range (int(len(data[1]["monthInfo"]))):
+#Check if the data is of date format or not,if yes add to the date list
+    if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
+      print("The value inside the date block",data[1]["monthInfo"][d])
+      chittyDateData.append(data[1]["monthInfo"][d])
+#Check if the data is matching the chitty number  format,if yes add to the chitty number list
+    elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
+      print("The value inside the chitty number block",data[1]["monthInfo"][d])
+      chittyNoData.append(data[1]["monthInfo"][d])
+with open('quotes.json') as D:
+  data = json.load(D)
+#  lineNoFilter(data)
+  chittyDateFilter(data)
