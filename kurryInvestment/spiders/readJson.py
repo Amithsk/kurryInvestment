@@ -41,28 +41,40 @@ salaData=[]
 aucpriData=[]
 payAmtData=[]
 
-def lineNoFilter(data):
+#def lineNoFilter(data):
 #Loop through the line no of chitty data
-  for d in range (int(len(data[1]["noOfChitty"]))):
+#  for d in range (int(len(data[1]["noOfChitty"]))):
 #Check if the data is of line no format or not,if yes add to the linen o list
-    if(lineNo.fullmatch(data[1]["noOfChitty"][d])):
-      lineNoData.append(data[1]["noOfChitty"][d])
+#    if(lineNo.fullmatch(data[1]["noOfChitty"][d])):
+#      lineNoData.append(data[1]["noOfChitty"][d])
 #Check if the data is matching the date format,if yes add to the chitty date list
-    elif(chittyDate.fullmatch(data[1]["noOfChitty"][d])):
-      chittyDateData.append(data[1]["noOfChitty"][d])
+#    elif(chittyDate.fullmatch(data[1]["noOfChitty"][d])):
+#      chittyDateData.append(data[1]["noOfChitty"][d])
 
-def chittyDateFilter(data):
+#def chittyDateFilter(data):
 #Loop through the line no of chitty data
-  for d in range (int(len(data[1]["monthInfo"]))):
+#  for d in range (int(len(data[1]["monthInfo"]))):
 #Check if the data is of date format or not,if yes add to the date list
-    if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
-      print("The value inside the date block",data[1]["monthInfo"][d])
-      chittyDateData.append(data[1]["monthInfo"][d])
+#    if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
+#      chittyDateData.append(data[1]["monthInfo"][d])
 #Check if the data is matching the chitty number  format,if yes add to the chitty number list
-    elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
-      print("The value inside the chitty number block",data[1]["monthInfo"][d])
-      chittyNoData.append(data[1]["monthInfo"][d])
+#    elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
+#      chittyNoData.append(data[1]["chittyNo"][d])
+
+def chittyNoFilter(data):
+#Loop through the line no of chitty data
+  for d in range (int(len(data[1]["chittyNo"]))):
+#Check if the data is of chitty no,if yes add to the chity no list
+    if(chittyNo.fullmatch(data[1]["chittyNo"][d])):
+      print("The value inside the chitty no block",data[1]["chittyNo"][d])
+      chittyNoData.append(data[1]["chittyNo"][d])
+#Check if the data is matching the chitty regno,if yes add to the reg  number list
+    elif(regNo.fullmatch(data[1]["chittyNo"][d])):
+      print("The value inside the chitty reg block",data[1]["chittyNo"][d])
+      regNoData.append(data[1]["chittyNo"][d])
+
 with open('quotes.json') as D:
   data = json.load(D)
 #  lineNoFilter(data)
-  chittyDateFilter(data)
+#  chittyDateFilter(data)
+  chittyNoFilter(data)
