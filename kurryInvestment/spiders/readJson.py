@@ -17,7 +17,7 @@ chittyDatePattern= r'\d{1,2}[/]\d{2}[/]\d{2,4}'
 chittyNoPattern= r'NKL \d+'
 salaPattern=   r'\d+,\d+,\d+-*'
 instPattern= r'\d+/\d+'
-apPattern= r'\w+'
+apPattern= r'(Auction|Prize)'
 payamtPattern=r'\d+,\d+'
 
 
@@ -76,31 +76,54 @@ payAmtData=[]
 #def chittyRegNoFilter(data):
 #Loop through the line no of chitty data
 #  for d in range (int(len(data[1]["regNo"]))):
-#    print("The value  under process",data[1]["regNo"][d])
 #Check if the data is of chitty reg no,if yes add to the chitty reg  no list
 #    if(regNo.fullmatch(data[1]["regNo"][d])):
-#      print("The value inside the chitty Reg no block",data[1]["regNo"][d])
 #      regNoData.append(data[1]["regNo"][d])
 #Check if the data is matching the chitty sala no,if yes add to the sala  list
 #    elif(sala.fullmatch(data[1]["regNo"][d])):
-#      print("The value inside the chitty sala block",data[1]["regNo"][d])
 #      salaData.append(data[1]["regNo"][d])
 
-def chittySalaFilter(data):
+#def chittySalaFilter(data):
 #Loop through chitty sala data
-  for d in range (int(len(data[1]["sala"]))):
-    print("The value  under process",data[1]["sala"][d])
+#  for d in range (int(len(data[1]["sala"]))):
 #Check if the data is of chitty sala,if yes add to the chitty sala list
-    if(sala.fullmatch(data[1]["sala"][d])):
-      print("The value inside the chitty sala block",data[1]["sala"][d])
-      salaData.append(data[1]["sala"][d])
+#    if(sala.fullmatch(data[1]["sala"][d])):
+#      salaData.append(data[1]["sala"][d])
 #Check if the data is matching the chitty inst,if yes add to the chitty inst
-    elif(inst.fullmatch(data[1]["sala"][d])):
-      print("The value inside the chitty inst  block",data[1]["sala"][d])
-      instData.append(data[1]["sala"][d])
+#    elif(inst.fullmatch(data[1]["sala"][d])):
+#      instData.append(data[1]["sala"][d])
 
 
 
+#def chittyInstFilter(data):
+#Loop through chitty inst data
+#  for d in range (int(len(data[1]["inst"]))):
+#Check if the data is of chitty inst,if yes add to the chitty inst list
+#    if(inst.fullmatch(data[1]["inst"][d])):
+#      instData.append(data[1]["inst"][d])
+#Check if the data is matching the chitty payment status,if yes add to the chitty status
+#    elif(aucpri.fullmatch(data[1]["inst"][d])):
+#      aucpriData.append(data[1]["inst"][d])
+
+#def chittyPayFilter(data):
+#Loop through chitty payment status data
+#  for d in range (int(len(data[1]["chittyStatus"]))):
+#Check if the data is of chitty payment statust,if yes add to the chitty payment status list
+#    if(aucpri.fullmatch(data[1]["chittyStatus"][d])):
+#      aucpriData.append(data[1]["chittyStatus"][d])
+#Check if the data is matching the chitty payment amount,if yes add to the chitty payment amount list
+#    elif(payamt.fullmatch(data[1]["chittyStatus"][d])):
+#      payAmtData.append(data[1]["chittyStatus"][d])
+
+
+
+
+def chittyPayAmtFilter(data):
+#Loop through chitty payment status data
+  for d in range (int(len(data[1]["chittyAmount"]))):
+#Check if the data is matching the chitty payment amount,if yes add to the chitty payment amount list
+    if(payamt.fullmatch(data[1]["chittyAmount"][d])):
+      payAmtData.append(data[1]["chittyAmount"][d])
 
 
 with open('quotes.json') as D:
@@ -109,4 +132,7 @@ with open('quotes.json') as D:
 #  chittyDateFilter(data)
 #  chittyNoiFilter(data)
 #  chittyRegNoFilter(data)
-  chittySalaFilter(data)
+#  chittySalaFilter(data)
+#  chittyInstFilter(data)
+#  chittyPayFilter(data)
+  chittyPayAmtFilter(data) 
