@@ -42,84 +42,84 @@ instData=[]
 aucpriData=[]
 payAmtData=[]
 
-#def lineNoFilter(data):
+def lineNoFilter(data):
 #Loop through the line no of chitty data
-#  for d in range (int(len(data[1]["noOfChitty"]))):
+  for d in range (int(len(data[1]["noOfChitty"]))):
 #Check if the data is of line no format or not,if yes add to the linen o list
-#    if(lineNo.fullmatch(data[1]["noOfChitty"][d])):
-#      lineNoData.append(data[1]["noOfChitty"][d])
+    if(lineNo.fullmatch(data[1]["noOfChitty"][d])):
+      lineNoData.append(data[1]["noOfChitty"][d])
 #Check if the data is matching the date format,if yes add to the chitty date list
-#    elif(chittyDate.fullmatch(data[1]["noOfChitty"][d])):
-#      chittyDateData.append(data[1]["noOfChitty"][d])
+    elif(chittyDate.fullmatch(data[1]["noOfChitty"][d])):
+      chittyDateData.append(data[1]["noOfChitty"][d])
 
-#def chittyDateFilter(data):
+def chittyDateFilter(data):
 #Loop through the line no of chitty date data
-#  for d in range (int(len(data[1]["monthInfo"]))):
+  for d in range (int(len(data[1]["monthInfo"]))):
 #Check if the data is of date format or not,if yes add to the date list
-#    if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
-#      chittyDateData.append(data[1]["monthInfo"][d])
+    if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
+      chittyDateData.append(data[1]["monthInfo"][d])
 #Check if the data is matching the chitty number  format,if yes add to the chitty number list
-#    elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
-#      chittyNoData.append(data[1]["monthInfo"][d])
+    elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
+      chittyNoData.append(data[1]["monthInfo"][d])
 
-#def chittyNoFilter(data):
+def chittyNoFilter(data):
 #Loop through the line no of chitty no  data
-#  for d in range (int(len(data[1]["chittyNo"]))):
+  for d in range (int(len(data[1]["chittyNo"]))):
 #Check if the data is of chitty no,if yes add to the chity no list
-#    if(chittyNo.fullmatch(data[1]["chittyNo"][d])):
-#      chittyNoData.append(data[1]["chittyNo"][d])
+    if(chittyNo.fullmatch(data[1]["chittyNo"][d])):
+      chittyNoData.append(data[1]["chittyNo"][d])
 #Check if the data is matching the chitty regno,if yes add to the reg  number list
-#    elif(regNo.fullmatch(data[1]["chittyNo"][d])):
-#      regNoData.append(data[1]["chittyNo"][d])
+    elif(regNo.fullmatch(data[1]["chittyNo"][d])):
+      regNoData.append(data[1]["chittyNo"][d])
 
 
-#def chittyRegNoFilter(data):
+def chittyRegNoFilter(data):
 #Loop through the line no of chitty data
-#  for d in range (int(len(data[1]["regNo"]))):
+  for d in range (int(len(data[1]["regNo"]))):
 #Check if the data is of chitty reg no,if yes add to the chitty reg  no list
-#    if(regNo.fullmatch(data[1]["regNo"][d])):
-#      regNoData.append(data[1]["regNo"][d])
+    if(regNo.fullmatch(data[1]["regNo"][d])):
+      regNoData.append(data[1]["regNo"][d])
 #Check if the data is matching the chitty sala no,if yes add to the sala  list
-#    elif(sala.fullmatch(data[1]["regNo"][d])):
-#      salaData.append(data[1]["regNo"][d])
+    elif(sala.fullmatch(data[1]["regNo"][d])):
+      salaData.append(data[1]["regNo"][d])
 
-#def chittySalaFilter(data):
+def chittySalaFilter(data):
 #Loop through chitty sala data
-#  for d in range (int(len(data[1]["sala"]))):
+  for d in range (int(len(data[1]["sala"]))):
 #Check if the data is of chitty sala,if yes add to the chitty sala list
-#    if(sala.fullmatch(data[1]["sala"][d])):
-#      salaData.append(data[1]["sala"][d])
+    if(sala.fullmatch(data[1]["sala"][d])):
+      salaData.append(data[1]["sala"][d])
 #Check if the data is matching the chitty inst,if yes add to the chitty inst
-#    elif(inst.fullmatch(data[1]["sala"][d])):
-#      instData.append(data[1]["sala"][d])
+    elif(inst.fullmatch(data[1]["sala"][d])):
+      instData.append(data[1]["sala"][d])
 
 
 
-#def chittyInstFilter(data):
+def chittyInstFilter(data):
 #Loop through chitty inst data
-#  for d in range (int(len(data[1]["inst"]))):
+  for d in range (int(len(data[1]["inst"]))):
 #Check if the data is of chitty inst,if yes add to the chitty inst list
-#    if(inst.fullmatch(data[1]["inst"][d])):
-#      instData.append(data[1]["inst"][d])
+    if(inst.fullmatch(data[1]["inst"][d])):
+      instData.append(data[1]["inst"][d])
 #Check if the data is matching the chitty payment status,if yes add to the chitty status
-#    elif(aucpri.fullmatch(data[1]["inst"][d])):
-#      aucpriData.append(data[1]["inst"][d])
+    elif(aucpri.fullmatch(data[1]["inst"][d])):
+      aucpriData.append(data[1]["inst"][d])
 
 #def chittyPayFilter(data):
 #Loop through chitty payment status data
-#  for d in range (int(len(data[1]["chittyStatus"]))):
+  for d in range (int(len(data[1]["chittyStatus"]))):
 #Check if the data is of chitty payment statust,if yes add to the chitty payment status list
-#    if(aucpri.fullmatch(data[1]["chittyStatus"][d])):
-#      aucpriData.append(data[1]["chittyStatus"][d])
+    if(aucpri.fullmatch(data[1]["chittyStatus"][d])):
+      aucpriData.append(data[1]["chittyStatus"][d])
 #Check if the data is matching the chitty payment amount,if yes add to the chitty payment amount list
-#    elif(payamt.fullmatch(data[1]["chittyStatus"][d])):
-#      payAmtData.append(data[1]["chittyStatus"][d])
+    elif(payamt.fullmatch(data[1]["chittyStatus"][d])):
+      payAmtData.append(data[1]["chittyStatus"][d])
 
 
 
 
 def chittyPayAmtFilter(data):
-#Loop through chitty payment status data
+#Loop through chitty payment amount  data
   for d in range (int(len(data[1]["chittyAmount"]))):
 #Check if the data is matching the chitty payment amount,if yes add to the chitty payment amount list
     if(payamt.fullmatch(data[1]["chittyAmount"][d])):
@@ -128,11 +128,11 @@ def chittyPayAmtFilter(data):
 
 with open('quotes.json') as D:
   data = json.load(D)
-#  lineNoFilter(data)
-#  chittyDateFilter(data)
-#  chittyNoiFilter(data)
-#  chittyRegNoFilter(data)
-#  chittySalaFilter(data)
-#  chittyInstFilter(data)
-#  chittyPayFilter(data)
+  lineNoFilter(data)
+  chittyDateFilter(data)
+  chittyNoiFilter(data)
+  chittyRegNoFilter(data)
+  chittySalaFilter(data)
+  chittyInstFilter(data)
+  chittyPayFilter(data)
   chittyPayAmtFilter(data) 
