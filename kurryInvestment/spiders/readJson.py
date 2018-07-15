@@ -13,13 +13,15 @@ import re
 #Pattern setup
 regNoPattern = r'\d+/\d+'
 lineNoPattern= r'\d+'
-chittyDatePattern= r'\d{1,2}[/]\d{2}[/]\d{2,4}'
-chittyNoPattern= r'NKL \d+'
+chittyDatePattern= r'(\d{1,2}[/]\d{2}[/]\d{2,4}[(]\d{1,2}[/]\d{1,2}[)]|\d{1,2}[/]\d{2}[/]\d{2,4})'
+chittyNoPattern= r'(NKL\d+|NKL \d+)'
 salaPattern=   r'\d+,\d+,\d+-*'
 instPattern= r'\d+/\d+'
 apPattern= r'(Auction|Prize)'
 payamtPattern=r'\d+,\d+'
-
+tempChittyNoPattern = r'NKL'
+tempNoPattern = r' \d+'
+tempDatePattern= r'[/]\d{2}[/]\d{2,4}'
 
 #Compile regular expression
 lineNo= re.compile(lineNoPattern)
@@ -30,6 +32,9 @@ sala= re.compile(salaPattern)
 inst= re.compile(instPattern)
 aucpri= re.compile(apPattern)
 payamt= re.compile(payamtPattern)
+tempChitty= re.compile(tempChittyNoPattern)
+tempNo= re.compile(tempNoPattern)
+tempDate= re.compile(tempDatePattern)
 
 
 #Storage of data 
@@ -55,16 +60,21 @@ def lineNoFilter(data):
 def chittyDateFilter(data):
 #Loop through the line no of chitty date data
   for d in range (int(len(data[1]["monthInfo"]))):
+    print("\nThe value under consideration is",data[1]["monthInfo"][d])
 #Check if the data is of date format or not,if yes add to the date list
     if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
       chittyDateData.append(data[1]["monthInfo"][d])
+      print("Inside the date block")
 #Check if the data is matching the chitty number  format,if yes add to the chitty number list
     elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
       chittyNoData.append(data[1]["monthInfo"][d])
+    elif( tempChitty.fullmatch(data[1]["monthInfo"][d]) and tempNo.fullmatch(data[1]["monthInfo"][d+1])):
+      chittyNoData.append(data[1]["monthInfo"][d]+data[1]["monthInfo"][d+1])
 
 def chittyNoFilter(data):
 #Loop through the line no of chitty no  data
   for d in range (int(len(data[1]["chittyNo"]))):
+    print("\nThe value under consideration is for chitty no",data[1]["chittyNo"][d])
 #Check if the data is of chitty no,if yes add to the chity no list
     if(chittyNo.fullmatch(data[1]["chittyNo"][d])):
       chittyNoData.append(data[1]["chittyNo"][d])
@@ -105,7 +115,7 @@ def chittyInstFilter(data):
     elif(aucpri.fullmatch(data[1]["inst"][d])):
       aucpriData.append(data[1]["inst"][d])
 
-#def chittyPayFilter(data):
+def chittyPayFilter(data):
 #Loop through chitty payment status data
   for d in range (int(len(data[1]["chittyStatus"]))):
 #Check if the data is of chitty payment statust,if yes add to the chitty payment status list
@@ -128,11 +138,23 @@ def chittyPayAmtFilter(data):
 
 with open('quotes.json') as D:
   data = json.load(D)
-  lineNoFilter(data)
-  chittyDateFilter(data)
-  chittyNoiFilter(data)
-  chittyRegNoFilter(data)
-  chittySalaFilter(data)
-  chittyInstFilter(data)
+  chittyPayAmtFilter(data)
   chittyPayFilter(data)
-  chittyPayAmtFilter(data) 
+  chittyInstFilter(data)
+  chittySalaFilter(data)
+  chittyRegNoFilter(data)
+  chittyNoFilter(data)
+  chittyDateFilter(data)
+  lineNoFilter(data)
+for i in range(int(len(chittyNoData))):
+  print("The value is",chittyNoData[i])
+
+print("\nThe value of chitty payAmount is",len(payAmtData),payAmtData[20])
+print("The value of chitty Chitty status is",len(aucpriData),aucpriData[20])
+print("\nThe value of chitty install is",len(instData),instData[20])
+print("\nThe value of chitty sala is",len(salaData),salaData[20])
+print("\nThe value of chitty regno is",len(regNoData),regNoData[20])
+print("\nThe value of chitty no is",len(chittyNoData),chittyNoData[20])
+print("\nThe value of chitty Date is",len(chittyDateData),chittyDateData[20])
+
+
