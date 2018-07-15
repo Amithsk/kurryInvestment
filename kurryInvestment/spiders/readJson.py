@@ -12,7 +12,7 @@ import re
 
 #Pattern setup
 regNoPattern = r'\d+/\d+'
-lineNoPattern= r'\d+'
+lineNoPattern= r'(\d+)|( \d+)'
 chittyDatePattern= r'(\d{1,2}[/]\d{2}[/]\d{2,4}[(]\d{1,2}[/]\d{1,2}[)]|\d{1,2}[/]\d{2}[/]\d{2,4})'
 chittyNoPattern= r'(NKL\d+|NKL \d+)'
 salaPattern=   r'\d+,\d+,\d+-*'
@@ -60,15 +60,17 @@ def lineNoFilter(data):
 def chittyDateFilter(data):
 #Loop through the line no of chitty date data
   for d in range (int(len(data[1]["monthInfo"]))):
-    print("\nThe value under consideration is",data[1]["monthInfo"][d])
 #Check if the data is of date format or not,if yes add to the date list
     if(chittyDate.fullmatch(data[1]["monthInfo"][d])):
       chittyDateData.append(data[1]["monthInfo"][d])
-      print("Inside the date block")
+#Code to handle the special case of Date format not proper,the date field was split    
+    elif(lineNo.fullmatch(data[1]["monthInfo"][d]) and tempDate.fullmatch(data[1]["monthInfo"][d+1])):
+      chittyDateData.append(data[1]["monthInfo"][d] +data[1]["monthInfo"][d+1])
 #Check if the data is matching the chitty number  format,if yes add to the chitty number list
     elif(chittyNo.fullmatch(data[1]["monthInfo"][d])):
       chittyNoData.append(data[1]["monthInfo"][d])
-    elif( tempChitty.fullmatch(data[1]["monthInfo"][d]) and tempNo.fullmatch(data[1]["monthInfo"][d+1])):
+#Code to handle the special case of chitty no,chity no and description are in different line
+    elif( tempChitty.fullmatch(data[1]["monthInfo"][d]) and lineNo.fullmatch(data[1]["monthInfo"][d+1])):
       chittyNoData.append(data[1]["monthInfo"][d]+data[1]["monthInfo"][d+1])
 
 def chittyNoFilter(data):
