@@ -46,6 +46,7 @@ salaData=[]
 instData=[]
 aucpriData=[]
 payAmtData=[]
+chittyMonthlyCount={}
 
 def lineNoFilter(data):
 #Loop through the line no of chitty data
@@ -76,7 +77,6 @@ def chittyDateFilter(data):
 def chittyNoFilter(data):
 #Loop through the line no of chitty no  data
   for d in range (int(len(data[1]["chittyNo"]))):
-    print("\nThe value under consideration is for chitty no",data[1]["chittyNo"][d])
 #Check if the data is of chitty no,if yes add to the chity no list
     if(chittyNo.fullmatch(data[1]["chittyNo"][d])):
       chittyNoData.append(data[1]["chittyNo"][d])
@@ -138,6 +138,31 @@ def chittyPayAmtFilter(data):
       payAmtData.append(data[1]["chittyAmount"][d])
 
 
+def chittyCountandPayUpdate(chittyDateData):
+  evalTerm = chittyDateCheck(chittyDateData[1])
+  chittyMonthCount=1
+  for val in range(1,len(chittyDateData)):
+    tempEvalTerm = chittyDateCheck(chittyDateData[val])
+    if tempEvalTerm == evalTerm:
+      chittyMonthCount+=1
+      chittyMonthlyCount[evalTerm]=chittyMonthCount
+    else:
+       evalTerm=tempEvalTerm
+       chittyMonthCount=1
+
+def chittyDateCheck(dateValue):
+#This function is used to check if the date is proper format 
+  if len(dateValue) == 10:
+   dateValue = dateValue[3:10]
+  elif len(dateValue)== 9:
+   dateValue = dateValue[2:10]
+  elif len(dateValue)== 17:
+   dateValue = dateValue[3:10]
+  elif len(dateValue)== 16:
+   dateValue = dateValue[3:10]
+  else:
+   dateValue = dateValue[4:11]
+  return dateValue
 with open('quotes.json') as D:
   data = json.load(D)
   chittyPayAmtFilter(data)
@@ -148,15 +173,5 @@ with open('quotes.json') as D:
   chittyNoFilter(data)
   chittyDateFilter(data)
   lineNoFilter(data)
-for i in range(int(len(chittyNoData))):
-  print("The value is",chittyNoData[i])
-
-print("\nThe value of chitty payAmount is",len(payAmtData),payAmtData[20])
-print("The value of chitty Chitty status is",len(aucpriData),aucpriData[20])
-print("\nThe value of chitty install is",len(instData),instData[20])
-print("\nThe value of chitty sala is",len(salaData),salaData[20])
-print("\nThe value of chitty regno is",len(regNoData),regNoData[20])
-print("\nThe value of chitty no is",len(chittyNoData),chittyNoData[20])
-print("\nThe value of chitty Date is",len(chittyDateData),chittyDateData[20])
-
+  chittyCountandPayUpdate(chittyDateData)
 
