@@ -9,6 +9,7 @@
 
 import json
 import re
+import itertools
 
 #Pattern setup
 regNoPattern = r'\d+/\d+'
@@ -139,6 +140,7 @@ def chittyPayAmtFilter(data):
 
 
 def chittyCountandPayUpdate(chittyDateData):
+#This function is used to get the count of chitty in specified month
   evalTerm = chittyDateCheck(chittyDateData[1])
   chittyMonthCount=1
   for val in range(1,len(chittyDateData)):
@@ -151,7 +153,7 @@ def chittyCountandPayUpdate(chittyDateData):
        chittyMonthCount=1
 
 def chittyDateCheck(dateValue):
-#This function is used to check if the date is proper format 
+#This function is used to check if the date is proper format for the function chittyCountandPayUpdate and can be reusede
   if len(dateValue) == 10:
    dateValue = dateValue[3:10]
   elif len(dateValue)== 9:
@@ -163,6 +165,20 @@ def chittyDateCheck(dateValue):
   else:
    dateValue = dateValue[4:11]
   return dateValue
+
+#To remove the repeated values in the  payFilter 
+def chittyAucPriFilter(chittyMonthlyCount):
+  indexValue=0
+#By default the first two values must be removed
+  del aucpriData[indexValue] 
+  del aucpriData[indexValue]
+  for chittyCount in itertools.islice(chittyMonthlyCount,0,len(chittyMonthlyCount)-1):
+    indexValue = indexValue+chittyMonthlyCount[chittyCount]
+    print("The value of index is ",indexValue)
+    del aucpriData[indexValue]
+    del aucpriData[indexValue]
+
+
 with open('quotes.json') as D:
   data = json.load(D)
   chittyPayAmtFilter(data)
@@ -174,4 +190,13 @@ with open('quotes.json') as D:
   chittyDateFilter(data)
   lineNoFilter(data)
   chittyCountandPayUpdate(chittyDateData)
+  chittyAucPriFilter(chittyMonthlyCount)
 
+  print("The length of chitty no",len(lineNoData))
+  print("The length of chitty Date",len(chittyDateData))
+  print("The length of chitty  no",len(chittyNoData))
+  print("The length of chitty  reg no",len(regNoData))
+  print("The length of chitty  sala",len(salaData))
+  print("The length of chitty  sala",len(instData))
+  print("The length of chitty  aucpri",len(aucpriData))
+  print("The length of chitty  pay amount",len(payAmtData))
