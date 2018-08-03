@@ -139,7 +139,7 @@ def chittyPayAmtFilter(data):
       payAmtData.append(data[1]["chittyAmount"][d])
 
 
-def chittyCountandPayUpdate(chittyDateData):
+def chittyMonthCount(chittyDateData):
 #This function is used to get the count of chitty in specified month
   evalTerm = chittyDateCheck(chittyDateData[1])
   chittyMonthCount=1
@@ -174,13 +174,20 @@ def chittyAucPriFilter(chittyMonthlyCount):
   del aucpriData[indexValue]
   for chittyCount in itertools.islice(chittyMonthlyCount,0,len(chittyMonthlyCount)-1):
     indexValue = indexValue+chittyMonthlyCount[chittyCount]
-    print("The value of index is ",indexValue)
     del aucpriData[indexValue]
     del aucpriData[indexValue]
 
+def printVal():
+#This function is used to print the data for validation and trouble shooting
+  for d in range(0,28):
+    print(chittyDateData[d],chittyNoData[d],regNoData[d],salaData[d],instData[d],aucpriData[d],payAmtData[d])
 
-with open('quotes.json') as D:
-  data = json.load(D)
+def parseJson():
+  with open('quotes.json') as D:
+    return json.load(D)
+
+def parseChittyContent():
+  data =parseJson()
   chittyPayAmtFilter(data)
   chittyPayFilter(data)
   chittyInstFilter(data)
@@ -189,14 +196,7 @@ with open('quotes.json') as D:
   chittyNoFilter(data)
   chittyDateFilter(data)
   lineNoFilter(data)
-  chittyCountandPayUpdate(chittyDateData)
+  chittyMonthCount(chittyDateData)
   chittyAucPriFilter(chittyMonthlyCount)
-
-  print("The length of chitty no",len(lineNoData))
-  print("The length of chitty Date",len(chittyDateData))
-  print("The length of chitty  no",len(chittyNoData))
-  print("The length of chitty  reg no",len(regNoData))
-  print("The length of chitty  sala",len(salaData))
-  print("The length of chitty  sala",len(instData))
-  print("The length of chitty  aucpri",len(aucpriData))
-  print("The length of chitty  pay amount",len(payAmtData))
+#  printVal()
+  return chittyDateData,chittyNoData,regNoData,salaData,instData,aucpriData,payAmtData,chittyMonthlyCount
