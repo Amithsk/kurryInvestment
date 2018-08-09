@@ -21,20 +21,18 @@ def dbUpdate():
 #Update the table with the chitty information
   cIn=sqlite3.connect('chittyData.db')
   cInCur = cIn.cursor()
-#  try:
 #  To retrieve chitty information
-#    for d in range(len(chittyDateData)):
-#      chittyData =[(None,chittyNoData[d],
-#                 chittyDateData[d],
-#                 regNoData[d],
-#                 salaData[d],
-#                 instData[d],
-#                 aucpriData[d],
-#                 payAmtData[d])]
-#      dbCheckIfPresent(chittyNoData[d],chittyDateData[d],regNoData[d],salaData[d],instData[d],aucpriData[d],payAmtData[d])
-#  except:
-#    cInCur.executemany('INSERT INTO CHITTYDATA VALUES(?,?,?,?,?,?,?,?)',chittyData)
-#  cIn.commit()
+  for d in range(len(chittyDateData)):
+    chittyData =[(None,chittyNoData[d],
+                 chittyDateData[d],
+                 regNoData[d],
+                 salaData[d],
+                 instData[d],
+                 aucpriData[d],
+                 payAmtData[d])]
+    if not (dbCheckIfPresent(chittyNoData[d],chittyDateData[d],regNoData[d],salaData[d],instData[d],aucpriData[d],payAmtData[d],cInCur)):
+      cInCur.executemany('INSERT INTO CHITTYDATA VALUES(?,?,?,?,?,?,?,?)',chittyData)
+  cIn.commit()
    
 #Update the table with chitty monthly information  
   for chittyCount in itertools.islice(chittyMonthlyCount,0,len(chittyMonthlyCount)-1):
@@ -56,9 +54,14 @@ def dbCheckIfPresent(*args):
       return 1
     else:
       return 0
-#  elif len(args) == 7:
-#    print("The function called from chittydata")
-#    return 1
+#To update the chitty data
+  elif len(args) == 8:
+    args[7].execute("SELECT COUNT(*) FROM CHITTYDATA WHERE CHITTYNO =? and CHITTYDATE=? and REGNUM=? and SALA=? and INSTALLMENT =? and STATUS=? and AMOUNT = ? ",(args[0],args[1],args[2],args[3],args[4],args[5],args[6]))
+    chRes = args[7].fetchone()[0]
+    if chRes :
+      return 1
+    else:
+      return 0
 
 
 
